@@ -1,0 +1,22 @@
+name: Generate snake animation
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Обновление каждые 6 часов
+  workflow_dispatch:  # Возможность запустить вручную
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Platane/snk@v3
+        with:
+          github_user_name: Luba-coder
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
